@@ -88,7 +88,8 @@ class _TopCoinsWidgetState extends State<TopCoinsWidget> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Text(
-                          crypto.price.toStringAsFixed(2) + currencySetting,
+                          double.parse(crypto.price).toStringAsFixed(2) +
+                              currencySetting,
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
@@ -98,7 +99,9 @@ class _TopCoinsWidgetState extends State<TopCoinsWidget> {
                         Text(
                           crypto.change +
                               ' ' +
-                              crypto.changeValue.abs().toStringAsFixed(2) +
+                              double.parse(crypto.changeValue)
+                                  .abs()
+                                  .toStringAsFixed(2) +
                               '%',
                           style: TextStyle(
                             color: Colors.greenAccent[700],

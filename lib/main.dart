@@ -4,6 +4,7 @@ import 'package:crypto_track/pages/cryptos.dart';
 import 'package:crypto_track/pages/favorites.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_track/pages/home.dart';
+import 'package:flutter/physics.dart';
 import 'package:provider/provider.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
@@ -68,6 +69,11 @@ class _RootWidgetState extends State<RootWidget> {
     ),
   ];
 
+  Future<void> _onRefresh() async {
+    await Provider.of<CryptoList>(context, listen: false).getData();
+    print('[REFRESH COMPLETE]');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +82,8 @@ class _RootWidgetState extends State<RootWidget> {
         child: IndexedStack(
           index: _currentIndex,
           children: allDestinations.map((Destination destination) {
-            return destination.widget;
+            return RefreshIndicator(
+                onRefresh: _onRefresh, child: destination.widget);
           }).toList(),
         ),
       ),
@@ -244,6 +251,14 @@ class _RootWidgetState extends State<RootWidget> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    print('[APP CLOSING] Cancelling timer.');
+    Provider.of<CryptoList>(context, listen: false).timer?.cancel();
+    print('[APP CLOSING] Cancelled timer.');
+    super.dispose();
   }
 }
 

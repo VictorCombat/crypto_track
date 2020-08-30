@@ -22,12 +22,6 @@ class _CryptosState extends State<Cryptos> {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: AppBar(
-        title: IconButton(
-          icon: Icon(Icons.update),
-          onPressed: () {
-            Provider.of<CryptoList>(context, listen: false).getData();
-          },
-        ),
         centerTitle: true,
         backgroundColor: Colors.grey[900],
         elevation: 0.0,
@@ -53,7 +47,8 @@ class _CryptosState extends State<Cryptos> {
                   itemBuilder: (context, index) {
                     changeColor = (value.getAtIndex(index).changeValue == null)
                         ? Colors.grey[400]
-                        : (value.getAtIndex(index).changeValue >= 0)
+                        : (double.parse(value.getAtIndex(index).changeValue) >=
+                                0)
                             ? Colors.greenAccent[700]
                             : Colors.redAccent[700];
 
@@ -89,7 +84,8 @@ class _CryptosState extends State<Cryptos> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Text(
-                              value.getAtIndex(index).price.toStringAsFixed(2) +
+                              double.parse(value.getAtIndex(index).price)
+                                      .toStringAsFixed(2) +
                                   '€/\$',
                               style: TextStyle(
                                 fontSize: 16.0,
@@ -102,9 +98,9 @@ class _CryptosState extends State<Cryptos> {
                                   ' ' +
                                   ((value.getAtIndex(index).changeValue == null)
                                       ? 'N/A'.toString()
-                                      : value
-                                          .getAtIndex(index)
-                                          .changeValue
+                                      : double.parse(value
+                                              .getAtIndex(index)
+                                              .changeValue)
                                           .abs()
                                           .toStringAsFixed(2)) +
                                   '%',

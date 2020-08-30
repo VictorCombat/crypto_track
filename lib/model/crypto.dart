@@ -1,9 +1,9 @@
 class Crypto {
   String name; // name of the currency (ex: Bitcoin)
   String diminutive; // diminutive of the currency (ex: BTC)
-  double price; // price of the currency
+  String price; // price of the currency
   String change;
-  double changeValue;
+  String changeValue;
   String logoUrl;
 
   Crypto(

@@ -61,7 +61,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
               if (value.favCryptos.indexOf(crypto) < 4) {
                 changeColor = (crypto.changeValue == null)
                     ? Colors.grey[400]
-                    : (crypto.changeValue >= 0)
+                    : (double.parse(crypto.changeValue) >= 0)
                         ? Colors.greenAccent[700]
                         : Colors.redAccent[700];
                 return Padding(
@@ -99,7 +99,8 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Text(
-                              crypto.price.toStringAsFixed(2) + currencySetting,
+                              double.parse(crypto.price).toStringAsFixed(2) +
+                                  currencySetting,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -111,7 +112,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                                   ' ' +
                                   ((crypto.changeValue == null)
                                       ? 'N/A'.toString()
-                                      : crypto.changeValue
+                                      : double.parse(crypto.changeValue)
                                           .abs()
                                           .toStringAsFixed(2)) +
                                   '%',

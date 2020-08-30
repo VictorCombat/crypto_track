@@ -23,20 +23,22 @@ class _HomeState extends State<Home> {
           },
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  ChangeWidget(),
-                  FavoritesWidget(),
-                  TopCoinsWidget(),
-                ],
+      body: Scrollbar(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    ChangeWidget(),
+                    FavoritesWidget(),
+                    TopCoinsWidget(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

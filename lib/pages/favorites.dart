@@ -150,7 +150,7 @@ class _FavoritesState extends State<Favorites> {
                                       ' ' +
                                       ((item.value.changeValue == null)
                                           ? 'N/A'.toString()
-                                          : item.value.changeValue
+                                          : double.parse(item.value.changeValue)
                                               .abs()
                                               .toStringAsFixed(2)) +
                                       '%',
