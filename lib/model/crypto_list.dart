@@ -22,7 +22,7 @@ class CryptoList extends ChangeNotifier {
     _read();
 
     // Trigger timer
-    timer = Timer.periodic(Duration(seconds: 15), (timer) {
+    timer = Timer.periodic(Duration(seconds: 60), (timer) {
       getData();
     });
   }
@@ -55,7 +55,7 @@ class CryptoList extends ChangeNotifier {
               ? "N/A"
               : (element['price_change_percentage_24h'] >= 0) ? '+' : '-',
           changeValue:
-              element['price_change_percentage_24h'].toString() ?? null,
+              element['price_change_percentage_24h'].toString() ?? 'N/A',
         ));
       });
 
@@ -70,10 +70,11 @@ class CryptoList extends ChangeNotifier {
       hotCryptos.clear();
       hotCryptos.addAll(cryptos);
       hotCryptos.sort((b, a) {
-        if (double.parse(b.changeValue) == null ||
-            double.parse(a.changeValue) == null) return 1;
-        return double.parse(a.changeValue)
-            .compareTo(double.parse(b.changeValue));
+        if (b.changeValue == 'null' || a.changeValue == 'null')
+          return 1;
+        else
+          return double.parse(a.changeValue)
+              .compareTo(double.parse(b.changeValue));
       });
       if (hotCryptos.length > 4) hotCryptos.removeRange(4, hotCryptos.length);
       // print('------------ ------------');

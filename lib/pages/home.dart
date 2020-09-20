@@ -23,7 +23,22 @@ class _HomeState extends State<Home> {
           },
         ),
       ),
-      body: Scrollbar(
+      body:
+          // Column(
+          //   children: [
+          //     Container(
+          //       height: MediaQuery.of(context).size.height * 0.3,
+          //       color: Colors.amberAccent[400],
+          //     ),
+          //     Container(
+          //       width: MediaQuery.of(context).size.width * 0.8,
+          //       transform: Matrix4.translationValues(0.0, -50.0, 0.0),
+          //       child: FavoritesWidget(),
+          //     ),
+          //   ],
+          // ),
+
+          Scrollbar(
         child: Column(
           children: <Widget>[
             Expanded(
