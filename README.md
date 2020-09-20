@@ -7,12 +7,12 @@ Ce projet personnel a pour but de m'apprendre à développer une application mob
 
 ## Table des matières
 
- * [Technologie / framework](#technologie-framework)
+ * [Technologies](#technologies)
  * [Avancements](#avancements)
  * [Galerie](#galerie)
  <!--* [Licence](#licence)-->
 
-## Technologie / framework
+## Technologies
 
 [Flutter](https://flutter.dev/) - [Dart](https://dart.dev/)
 
