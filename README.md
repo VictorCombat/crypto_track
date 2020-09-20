@@ -7,7 +7,7 @@ Ce projet personnel a pour but de m'apprendre à développer une application mob
 
 ## Table des matières
 
- * [Technologies utilisées](#technologies-utilisees)
+ * [Technologie / framework](#technologie-framework)
  * [Avancements](#avancements)
  * [Galerie](#galerie)
  <!--* [Licence](#licence)-->
