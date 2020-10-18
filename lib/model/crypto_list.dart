@@ -22,7 +22,7 @@ class CryptoList extends ChangeNotifier {
     _read();
 
     // Trigger timer
-    timer = Timer.periodic(Duration(seconds: 60), (timer) {
+    timer = Timer.periodic(Duration(minutes: 10), (timer) {
       getData();
     });
   }

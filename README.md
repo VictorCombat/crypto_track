@@ -32,7 +32,7 @@ Ce projet personnel a pour but de m'apprendre à développer une application mob
 | [Gestion des favoris (persistant)](http://flutterdevs.com/blog/using-sharedpreferences-in-flutter/)           |     :white_check_mark:    |
 | Réagencement des favoris (Drag List)                                                                          |     :white_check_mark:    |
 | Page de détails de la crypto sélectionnée                                                                     |       :construction:      |
-| Widget de change de (crypto)monnaies                                                                          |   :black_square_button:   |
+| Widget de change de (crypto)monnaies                                                                          |       :construction:      |
 | Recherche de cryptomonnaies                                                                                   |   :black_square_button:   |
 | Trier la liste de cryptomonnaies                                                                              |   :black_square_button:   |
 | Paramètres de l'application                                                                                   |   :black_square_button:   |
