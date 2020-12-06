@@ -106,6 +106,7 @@ class Crypto {
       return Future.value(true);
     } else {
       print('Request failed with status: ${response.statusCode}.');
+      return Future.value(false);
     }
   }
 }

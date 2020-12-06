@@ -1,4 +1,5 @@
 import 'package:crypto_track/model/crypto_list.dart';
+import 'package:crypto_track/model/fiat_list.dart';
 import 'package:crypto_track/pages/crypto_details.dart';
 import 'package:crypto_track/pages/cryptos.dart';
 import 'package:crypto_track/pages/favorites.dart';
@@ -13,6 +14,9 @@ void main() => runApp(
         providers: [
           ChangeNotifierProvider(
             create: (context) => CryptoList(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => FiatList(),
           ),
         ],
         child: MaterialApp(

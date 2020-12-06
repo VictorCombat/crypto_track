@@ -31,7 +31,8 @@ class _CryptoDetailsState extends State<CryptoDetails> {
           data: data,
           domainFn: (Data series, _) => series.date,
           measureFn: (Data series, _) => double.parse(series.price),
-          colorFn: (Data series, _) => charts.MaterialPalette.blue.shadeDefault)
+          colorFn: (Data series, _) =>
+              charts.ColorUtil.fromDartColor(Colors.amberAccent[400]))
     ];
 
     return Future.value(series);
@@ -43,7 +44,7 @@ class _CryptoDetailsState extends State<CryptoDetails> {
     if (selectedDatum.isNotEmpty) {
       setState(() {
         currPrice =
-            double.parse(selectedDatum.first.datum.price).toStringAsFixed(2);
+            double.parse(selectedDatum.first.datum.price).toStringAsFixed(6);
       });
     }
   }
@@ -75,8 +76,25 @@ class _CryptoDetailsState extends State<CryptoDetails> {
                   ),
                 ],
                 primaryMeasureAxis: charts.NumericAxisSpec(
-                  tickProviderSpec:
-                      charts.BasicNumericTickProviderSpec(zeroBound: false),
+                  renderSpec: charts.GridlineRendererSpec(
+                    lineStyle: charts.LineStyleSpec(
+                      color: charts.ColorUtil.fromDartColor(Colors.grey[700]),
+                    ),
+                    labelStyle: charts.TextStyleSpec(
+                      fontSize: 13,
+                      color: charts.ColorUtil.fromDartColor(Colors.grey[300]),
+                    ),
+                  ),
+                  tickProviderSpec: charts.BasicNumericTickProviderSpec(
+                      zeroBound: false, dataIsInWholeNumbers: false),
+                ),
+                domainAxis: charts.DateTimeAxisSpec(
+                  renderSpec: charts.SmallTickRendererSpec(
+                    labelStyle: charts.TextStyleSpec(
+                      fontSize: 13,
+                      color: charts.ColorUtil.fromDartColor(Colors.grey[300]),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -153,72 +171,94 @@ class _CryptoDetailsState extends State<CryptoDetails> {
               );
             },
           ),
-          // IconButton(
-          //   icon: Icon(Icons.notifications),
-          //   onPressed: () {
-          //     print('TAP');
-          //   },
-          // ),
         ],
       ),
       body: Scrollbar(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '$currPrice $currencySetting',
-                  style: TextStyle(
-                    color: Colors.grey[300],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      '$currPrice $currencySetting',
+                      style: TextStyle(
+                        color: Colors.grey[300],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
                   ),
-                ),
-                Text(
-                  crypto.change +
-                      ' ' +
-                      ((crypto.changeValue == null)
-                          ? 'N/A'.toString()
-                          : double.parse(crypto.changeValue)
-                              .abs()
-                              .toStringAsFixed(2)) +
-                      '%',
-                  style: TextStyle(
-                    color: Colors.grey[300],
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      crypto.change +
+                          ' ' +
+                          ((crypto.changeValue == null)
+                              ? 'N/A'.toString()
+                              : double.parse(crypto.changeValue)
+                                  .abs()
+                                  .toStringAsFixed(2)) +
+                          '%',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                        color: (double.parse(crypto.changeValue) >= 0)
+                            ? Colors.greenAccent[700]
+                            : Colors.redAccent[700],
+                      ),
+                    ),
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height / 2,
+                width: MediaQuery.of(context).size.width,
+                child: chart == null ? _buildChart() : chart,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ToggleButtons(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.0,
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 250.0,
-              width: MediaQuery.of(context).size.width,
-              child: chart == null ? _buildChart() : chart,
-            ),
-            ToggleButtons(
-              isSelected: isSelected,
-              children: [
-                Text('8H'),
-                Text('1D'),
-                Text('1W'),
-                Text('1M'),
-                Text('6M'),
-              ],
-              onPressed: (index) {
-                setState(() {
-                  chart = null;
+                color: Colors.amberAccent[400],
+                selectedColor: Colors.grey[900],
+                fillColor: Colors.amberAccent[400],
+                isSelected: isSelected,
+                children: [
+                  Text('8H'),
+                  Text('1D'),
+                  Text('1W'),
+                  Text('1M'),
+                  Text('6M'),
+                ],
+                onPressed: (index) {
+                  setState(() {
+                    chart = null;
 
-                  for (int buttonIndex = 0;
-                      buttonIndex < isSelected.length;
-                      buttonIndex++) {
-                    if (buttonIndex == index) {
-                      isSelected[buttonIndex] = true;
-                    } else {
-                      isSelected[buttonIndex] = false;
+                    for (int buttonIndex = 0;
+                        buttonIndex < isSelected.length;
+                        buttonIndex++) {
+                      if (buttonIndex == index) {
+                        isSelected[buttonIndex] = true;
+                      } else {
+                        isSelected[buttonIndex] = false;
+                      }
                     }
-                  }
 
-                  type = HistoricalDataType.values[index];
-                });
-              },
+                    type = HistoricalDataType.values[index];
+                  });
+                },
+              ),
             ),
           ],
         ),

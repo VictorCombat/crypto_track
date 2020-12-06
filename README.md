@@ -33,7 +33,7 @@ Ce projet personnel a pour but de m'apprendre à développer une application mob
 | Réagencement des favoris (Drag List)                                                                          |     :white_check_mark:    |
 | Page de détails de la crypto sélectionnée                                                                     |       :construction:      |
 | Widget de change de (crypto)monnaies                                                                          |       :construction:      |
-| Recherche de cryptomonnaies                                                                                   |   :black_square_button:   |
+| Recherche de cryptomonnaies                                                                                   |       :construction:      |
 | Trier la liste de cryptomonnaies                                                                              |   :black_square_button:   |
 | Paramètres de l'application                                                                                   |   :black_square_button:   |
 | Design final de l'application                                                                                 |   :black_square_button:   |

@@ -2,7 +2,6 @@ import 'package:crypto_track/model/crypto.dart';
 import 'package:crypto_track/model/crypto_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 
 class Cryptos extends StatefulWidget {
   @override
@@ -13,14 +12,41 @@ class _CryptosState extends State<Cryptos> {
   Color changeColor;
   TextEditingController _textController = TextEditingController();
 
-  onItemChanged(String value) {
-    setState(() {});
+  CryptoList initialList;
+  List<Crypto> queryList = List<Crypto>();
+  bool isSearching = false;
+
+  bool _containsIgnoreCase(String s1, String s2) {
+    return s1.toLowerCase().contains(s2.toLowerCase());
+  }
+
+  void _filterSearchResults(String query) {
+    List<Crypto> tmpList = List<Crypto>();
+    if (query.isNotEmpty) {
+      isSearching = true;
+      initialList.cryptos.forEach((element) {
+        if (_containsIgnoreCase(element.name, query)) {
+          tmpList.add(element);
+        }
+      });
+
+      setState(() {
+        queryList.clear();
+        queryList.addAll(tmpList);
+      });
+    } else {
+      isSearching = false;
+      setState(() {
+        queryList.clear();
+        queryList.addAll(initialList.cryptos);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.grey[900],
@@ -28,27 +54,58 @@ class _CryptosState extends State<Cryptos> {
       ),
       body: Column(
         children: [
+          /* ============ SEARCH BAR ============ */
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: TextField(
+              //TODO: FIND A WAY TO OVERRIDE COLOR PROPERTY OF textSelectionHandle
               controller: _textController,
-              onChanged: onItemChanged,
+              onChanged: _filterSearchResults,
+              cursorColor: Colors.amberAccent[400],
+              style: TextStyle(color: Colors.grey[300]),
               decoration: InputDecoration(
-                hintText: 'Search coins',
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.amberAccent[400],
+                ),
+                hintText: 'Search for cryptos (Bitcoin, Ethereum, etc.)',
+                hintStyle: TextStyle(
+                  color: Colors.amberAccent[400],
+                  fontStyle: FontStyle.italic,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.amberAccent[400],
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.amberAccent[400],
+                  ),
+                ),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.amberAccent[400],
+                  ),
+                ),
               ),
             ),
           ),
+          /* ============ CRYPTOS LIST ============ */
           Expanded(
             child: Consumer<CryptoList>(
               builder: (context, value, child) {
+                initialList = value;
+                if (queryList.length == 0 && !isSearching)
+                  queryList.addAll(initialList.cryptos);
+
                 return ListView.separated(
-                  itemCount: Provider.of<CryptoList>(context, listen: false)
-                      .getLength(),
+                  itemCount: queryList.length,
                   itemBuilder: (context, index) {
-                    changeColor = (value.getAtIndex(index).changeValue == null)
+                    Crypto currentCrypto = queryList.elementAt(index);
+                    changeColor = (currentCrypto.changeValue == null)
                         ? Colors.grey[400]
-                        : (double.parse(value.getAtIndex(index).changeValue) >=
-                                0)
+                        : (double.parse(currentCrypto.changeValue) >= 0)
                             ? Colors.greenAccent[700]
                             : Colors.redAccent[700];
 
@@ -58,25 +115,24 @@ class _CryptosState extends State<Cryptos> {
                       child: ListTile(
                         onTap: () {
                           Navigator.pushNamed(context, '/crypto_details',
-                              arguments: value.getAtIndex(index));
+                              arguments: currentCrypto);
                         },
                         title: Text(
-                          value.getAtIndex(index).name,
+                          currentCrypto.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[300],
                           ),
                         ),
                         subtitle: Text(
-                          value.getAtIndex(index).diminutive,
+                          currentCrypto.diminutive,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[400],
                           ),
                         ),
                         leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(value.getAtIndex(index).logoUrl),
+                          backgroundImage: NetworkImage(currentCrypto.logoUrl),
                           backgroundColor: Colors.transparent,
                         ),
                         trailing: Column(
@@ -84,7 +140,7 @@ class _CryptosState extends State<Cryptos> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Text(
-                              double.parse(value.getAtIndex(index).price)
+                              double.parse(currentCrypto.price)
                                       .toStringAsFixed(2) +
                                   '€/\$',
                               style: TextStyle(
@@ -94,13 +150,11 @@ class _CryptosState extends State<Cryptos> {
                               ),
                             ),
                             Text(
-                              value.getAtIndex(index).change +
+                              currentCrypto.change +
                                   ' ' +
-                                  ((value.getAtIndex(index).changeValue == null)
+                                  ((currentCrypto.changeValue == null)
                                       ? 'N/A'.toString()
-                                      : double.parse(value
-                                              .getAtIndex(index)
-                                              .changeValue)
+                                      : double.parse(currentCrypto.changeValue)
                                           .abs()
                                           .toStringAsFixed(2)) +
                                   '%',

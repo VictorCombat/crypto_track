@@ -1,19 +1,11 @@
 import 'package:crypto_track/model/crypto.dart';
 import 'package:crypto_track/model/crypto_list.dart';
+import 'package:crypto_track/model/fiat.dart';
+import 'package:crypto_track/model/fiat_list.dart';
+import 'package:crypto_track/services/change_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
-
-//TODO: create file for this class
-class FiatCurrency {
-  String name;
-  String diminutive;
-  String logoUrl;
-
-  FiatCurrency({this.name, this.diminutive, this.logoUrl});
-}
 
 class ChangeWidget extends StatefulWidget {
   @override
@@ -22,17 +14,7 @@ class ChangeWidget extends StatefulWidget {
 
 class _ChangeWidgetState extends State<ChangeWidget> {
   Crypto selectedCrypto;
-  FiatCurrency selectedFiat;
-  List<FiatCurrency> fiats = [
-    FiatCurrency(name: "US Dollar", diminutive: "USD", logoUrl: "N/A"),
-    FiatCurrency(name: "British Pound", diminutive: "GBP", logoUrl: "N/A"),
-    FiatCurrency(name: "Euro", diminutive: "EUR", logoUrl: "N/A"),
-    FiatCurrency(name: "Canadian Dollar", diminutive: "CAD", logoUrl: "N/A"),
-    FiatCurrency(name: "Australian Dollar", diminutive: "AUD", logoUrl: "N/A"),
-    FiatCurrency(name: "Hong Kong Dollar", diminutive: "HKD", logoUrl: "N/A"),
-    FiatCurrency(name: "Swiss Franc", diminutive: "CHF", logoUrl: "N/A"),
-    FiatCurrency(name: "Russian Ruble", diminutive: "RUB", logoUrl: "N/A"),
-  ];
+  Fiat selectedFiat;
 
   TextEditingController _leftTextController = TextEditingController();
   TextEditingController _rightTextController = TextEditingController();
@@ -163,40 +145,53 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                 ),
                 Expanded(
                   child: ListView.separated(
-                    itemCount: fiats.length,
+                    itemCount: Provider.of<FiatList>(context).fiats.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 1.0, horizontal: 4.0),
                         child: ListTile(
                           onTap: () {
-                            print(fiats[index].name);
+                            print(Provider.of<FiatList>(context)
+                                .fiats[index]
+                                .name);
                             setState(() {
-                              selectedFiat = fiats[index];
+                              selectedFiat =
+                                  Provider.of<FiatList>(context).fiats[index];
                             });
                             Navigator.of(context).pop();
                           },
                           title: Text(
-                            fiats[index].name,
+                            Provider.of<FiatList>(context).fiats[index].name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[300],
                             ),
                           ),
                           subtitle: Text(
-                            fiats[index].diminutive,
+                            Provider.of<FiatList>(context)
+                                .fiats[index]
+                                .diminutive,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[400],
                             ),
                           ),
                           leading: CircleAvatar(
-                            backgroundImage: NetworkImage(fiats[index].logoUrl),
+                            backgroundImage: NetworkImage(
+                                Provider.of<FiatList>(context)
+                                    .fiats[index]
+                                    .logoUrl),
                             backgroundColor: Colors.transparent,
                           ),
-                          trailing: (selectedFiat.name == fiats[index].name &&
+                          trailing: (selectedFiat.name ==
+                                      Provider.of<FiatList>(context)
+                                          .fiats[index]
+                                          .name &&
                                   selectedFiat.diminutive ==
-                                      fiats[index].diminutive)
+                                      Provider.of<FiatList>(context)
+                                          .fiats[index]
+                                          .diminutive)
                               ? Icon(Icons.check)
                               : SizedBox(),
                         ),
@@ -213,43 +208,11 @@ class _ChangeWidgetState extends State<ChangeWidget> {
         });
   }
 
-  Future<String> getData(bool side) async {
-    // CALL API : "https://api.coingecko.com/api/v3/simple/price?ids=${selectedCrypto.name.toLowerCase()}&vs_currencies=${selectedFiat.diminutive.toLowerCase()}"
-    var url =
-        "https://api.coingecko.com/api/v3/simple/price?ids=${selectedCrypto.name.toLowerCase()}&vs_currencies=${selectedFiat.diminutive.toLowerCase()}";
-    print("[-- CALL API --] : $url");
-
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-
-      print("[-- RESPONSE --]: $jsonResponse");
-      // print(jsonResponse['${selectedCrypto.name.toLowerCase()}']
-      //         ['${selectedFiat.diminutive.toLowerCase()}']
-      //     .runtimeType);
-
-      // Get the price for one unit
-      double priceForOne = jsonResponse['${selectedCrypto.name.toLowerCase()}']
-          ['${selectedFiat.diminutive.toLowerCase()}'];
-
-      if (side) {
-        // Right side -> fiat to crypto
-        return (double.parse(_rightTextController.value.text) / priceForOne)
-            .toStringAsFixed(8);
-      } else {
-        // Left side -> crypto to fiat
-        return (double.parse(_leftTextController.value.text) * priceForOne)
-            .toStringAsFixed(2);
-      }
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-      return "N/A";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    selectedFiat = (selectedFiat == null) ? fiats[0] : selectedFiat;
+    selectedFiat = (selectedFiat == null)
+        ? Provider.of<FiatList>(context).fiats[0]
+        : selectedFiat;
 
     return Container(
       color: Colors.grey[900],
@@ -292,14 +255,24 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                               textColor: Colors.grey[900],
                               color: Colors.amberAccent[400],
                               child: Container(
-                                child: Text(
-                                  (selectedCrypto == null)
-                                      ? "N/A"
-                                      : selectedCrypto.diminutive.toUpperCase(),
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                child: Consumer<CryptoList>(
+                                  builder: (context, value, child) {
+                                    if (selectedCrypto == null) {
+                                      if (value.cryptos.length > 0) {
+                                        selectedCrypto = value.cryptos[0];
+                                      }
+                                    }
+                                    return Text(
+                                      (selectedCrypto == null)
+                                          ? ""
+                                          : selectedCrypto.diminutive
+                                              .toUpperCase(),
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -309,7 +282,11 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                             onChanged: (value) async {
                               // await getData(true);
                               _rightTextController.value = TextEditingValue(
-                                  text: await getData(false),
+                                  text: await ChangeCurrency.change(
+                                      false,
+                                      selectedCrypto,
+                                      selectedFiat,
+                                      _leftTextController.value.text),
                                   selection: TextSelection.fromPosition(
                                       TextPosition(offset: value.length)));
                             },
@@ -402,7 +379,11 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                             controller: _rightTextController,
                             onChanged: (value) async {
                               _leftTextController.value = TextEditingValue(
-                                  text: await getData(true),
+                                  text: await ChangeCurrency.change(
+                                      true,
+                                      selectedCrypto,
+                                      selectedFiat,
+                                      _rightTextController.value.text),
                                   selection: TextSelection.fromPosition(
                                       TextPosition(offset: value.length)));
                             },
