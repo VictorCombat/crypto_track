@@ -34,7 +34,7 @@ Ce projet personnel a pour but de m'apprendre à développer une application mob
 | Page de détails de la crypto sélectionnée                                                                     |       :construction:      |
 | Widget de change de (crypto)monnaies                                                                          |       :construction:      |
 | Recherche de cryptomonnaies                                                                                   |       :construction:      |
-| Trier la liste de cryptomonnaies                                                                              |   :black_square_button:   |
+| Trier la liste de cryptomonnaies                                                                              |       :construction:      |
 | Paramètres de l'application                                                                                   |   :black_square_button:   |
 | Design final de l'application                                                                                 |   :black_square_button:   |
 | Publication sur Android / iOS                                                                                 |   :black_square_button:   |

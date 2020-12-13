@@ -17,15 +17,21 @@ class Crypto {
   String changeValue;
   String logoUrl;
 
+  String marketCap;
+  String totalVolume;
+
   HistoricalData historicalData = HistoricalData();
 
-  Crypto(
-      {this.name,
-      this.diminutive,
-      this.price,
-      this.change,
-      this.changeValue,
-      this.logoUrl});
+  Crypto({
+    this.name,
+    this.diminutive,
+    this.price,
+    this.change,
+    this.changeValue,
+    this.logoUrl,
+    this.marketCap,
+    this.totalVolume,
+  });
 
   Future<bool> getHistoricalData(HistoricalDataType type) async {
     print('[TYPE]: ${type.toString()}');

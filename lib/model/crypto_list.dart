@@ -56,6 +56,12 @@ class CryptoList extends ChangeNotifier {
               : (element['price_change_percentage_24h'] >= 0) ? '+' : '-',
           changeValue:
               element['price_change_percentage_24h'].toString() ?? 'N/A',
+          marketCap: (element['market_cap'] == null)
+              ? "N/A"
+              : element['market_cap'].toString(),
+          totalVolume: (element['total_volume'] == null)
+              ? "N/A"
+              : element['total_volume'].toString(),
         ));
       });
 
