@@ -1,50 +1,91 @@
-# CryptoTrack
+<p align="center">
+  <!--<img src="img/readme-pic.png" alt="Logo" width="800" height="500">-->
 
-<!-- Lien vers une version readme anglaise ? -->
+  <h1 align="center"> CryptoTrack </h1>
 
-CryptoTrack est une application de suivi de cryptomonnaies. <br>
-Ce projet personnel a pour but de m'apprendre à développer une application mobile de A à Z.
+  <p align="center">
+    <br />
+    <a href="#about-the-project">About the project</a>
+    ·
+    <a href="#built-with">Built With</a>
+    ·
+    <a href="#main-features">Main Features</a>
+    ·
+    <!--<a href="#getting-started">Getting Started</a>
+    .-->
+    <!--<a href="#gallery">Gallery</a>
+    . -->
+    <!--<a href="#license">License</a>
+    . -->
+    <a href="#contact">Contact</a>
+    <br>
+    <br>
+    <a href="https://www.linkedin.com/in/victor-combat/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0d1117?style=for-the-badge&logo=linkedin&logoColor=0077B5"></a>
+  <a href="https://github.com/VictorCombat/VictorCombat" target="_blank"><img src="https://img.shields.io/badge/GitHub-0d1117?style=for-the-badge&logo=github&logoColor=white"></a>
+  <a href="mailto:victor.cmbt@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-0d1117?style=for-the-badge&logo=gmail&logoColor=D14836"></a>
+  </p>
+</p>
 
-## Table des matières
+<br>
 
- * [Technologies](#technologies)
- * [Avancements](#avancements)
- * [Galerie](#galerie)
- <!--* [Licence](#licence)-->
+<!-- ABOUT THE PROJECT -->
+## About the project
 
-## Technologies
+CryptoTrack is a cryptocurrency tracking application.
+The purpose of this personal project is to learn how to develop a mobile application with a cross-platform framework.
 
-[Flutter](https://flutter.dev/) - [Dart](https://dart.dev/)
+<!-- BUILT WITH -->
+## Built With
 
-## Avancements 
+* [Flutter](https://flutter.dev/)
+* [Dart](https://dart.dev/)
+
+<!-- MAIN FEATURES -->
+## Main Features
 
 <div style="margin-left: auto;
     margin-right: auto;
     width: 500px">
 
-| <div style="width: 250px"> Tâches </div>                                                                      | Status                    |
-| :---                                                                                                          |           :---:           |
-| Récupération de données via API                                                                               |     :white_check_mark:    |
-| [Gestion d'état de l'application](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple)    |     :white_check_mark:    |
-| Navigation sur plusieurs pages                                                                                |     :white_check_mark:    |
-| '_Pull to refresh_'                                                                                           |     :white_check_mark:    |
-| Mise à jour des données automatique                                                                           |     :white_check_mark:    |
-| [Gestion des favoris (persistant)](http://flutterdevs.com/blog/using-sharedpreferences-in-flutter/)           |     :white_check_mark:    |
-| Réagencement des favoris (Drag List)                                                                          |     :white_check_mark:    |
-| Page de détails de la crypto sélectionnée                                                                     |       :construction:      |
-| Widget de change de (crypto)monnaies                                                                          |       :construction:      |
-| Recherche de cryptomonnaies                                                                                   |       :construction:      |
-| Trier la liste de cryptomonnaies                                                                              |       :construction:      |
-| Paramètres de l'application                                                                                   |   :black_square_button:   |
-| Design final de l'application                                                                                 |   :black_square_button:   |
-| Publication sur Android / iOS                                                                                 |   :black_square_button:   |
+   | <div style="width: 250px"> Tâches </div>                                                                      | Status                    |
+   | :---                                                                                                          |           :---:           |
+   | Fetch data from API                                                                                           |     :white_check_mark:    |
+   | [Managing application state](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple)         |     :white_check_mark:    |
+   | Navigation                                                                                                    |     :white_check_mark:    |
+   | '_Pull to refresh_'                                                                                           |     :white_check_mark:    |
+   | Automatic fetch data update                                                                                   |     :white_check_mark:    |
+   | [Persisting favorites](http://flutterdevs.com/blog/using-sharedpreferences-in-flutter/)                       |     :white_check_mark:    |
+   | Reorder favorites (Drag List)                                                                                 |     :white_check_mark:    |
+   | Cryptocurrency details page                                                                                   |       :construction:      |
+   | Cryptocurrency widget converter                                                                               |       :construction:      |
+   | Cryptocurrency search                                                                                         |       :construction:      |
+   | Cryptocurrencies sorting                                                                                      |       :construction:      |
+   | Application settings                                                                                          |   :black_square_button:   |
+   | Final UI                                                                                                      |   :black_square_button:   |
+   <!--| Publishing on Android / iOS                                                                                 |   :black_square_button:   |-->
 
 </div>
 
-## Galerie
+<!-- GETTING STARTED -->
+<!--## Getting Started-->
 
-_Screenshots à venir_
+<!--## Gallery
+-->
 
-<!--## Licence
+<!--## License
 
 License ? :copyright:-->
+
+<!-- CONTACT -->
+## Contact
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/victor-combat/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0d1117?style=for-the-badge&logo=linkedin&logoColor=0077B5"></a>
+  <a href="https://github.com/VictorCombat/VictorCombat" target="_blank"><img src="https://img.shields.io/badge/GitHub-0d1117?style=for-the-badge&logo=github&logoColor=white"></a>
+  <a href="mailto:victor.cmbt@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-0d1117?style=for-the-badge&logo=gmail&logoColor=D14836"></a>
+</p>
+
+##
+<p align="center">
+  <a href="#"><img src="https://forthebadge.com/images/badges/built-with-love.svg"></a>
+</p>
