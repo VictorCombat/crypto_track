@@ -37,7 +37,7 @@ Ce projet personnel a pour but de m'apprendre à développer une application mob
 | Trier la liste de cryptomonnaies                                                                              |       :construction:      |
 | Paramètres de l'application                                                                                   |   :black_square_button:   |
 | Design final de l'application                                                                                 |   :black_square_button:   |
-| Publication sur Android / iOS                                                                                 |   :black_square_button:   |
+<!-- | Publication sur Android / iOS                                                                                 |   :black_square_button:   | -->
 
 </div>
 

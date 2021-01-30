@@ -48,6 +48,9 @@ class _HomeState extends State<Home> {
                     ChangeWidget(),
                     FavoritesWidget(),
                     TopCoinsWidget(),
+                    SizedBox(
+                      height: 40.0,
+                    ),
                   ],
                 ),
               ),

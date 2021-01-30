@@ -62,6 +62,9 @@ class _CryptosState extends State<Cryptos> {
 
         switch (sortBy) {
           case SortBy.ALPHABETICAL:
+            if (a.name == null || b.name == null) {
+              return -1;
+            }
             return a.name.compareTo(b.name);
             break;
           case SortBy.MARKET_CAP:
@@ -69,9 +72,8 @@ class _CryptosState extends State<Cryptos> {
                 .compareTo(double.parse(b.marketCap));
             break;
           case SortBy.PERFORMERS:
-            // TODO: FIX THIS
-            double aval = double.tryParse(a.change);
-            double bval = double.tryParse(b.change);
+            double aval = double.tryParse(a.changeValue);
+            double bval = double.tryParse(b.changeValue);
             if (aval == null || bval == null)
               return -1;
             else
@@ -167,76 +169,90 @@ class _CryptosState extends State<Cryptos> {
             child: Consumer<CryptoList>(
               builder: (context, value, child) {
                 initialList = value;
-                if (queryList.length == 0 && !isSearching)
+                if (queryList.length == 0 && !isSearching) {
                   queryList.addAll(initialList.cryptos);
+                } else {
+                  queryList.add(Crypto());
+                }
 
                 return ListView.separated(
                   itemCount: queryList.length,
                   itemBuilder: (context, index) {
-                    Crypto currentCrypto = queryList.elementAt(index);
-                    changeColor = (currentCrypto.changeValue == null)
-                        ? Colors.grey[400]
-                        : (double.parse(currentCrypto.changeValue) >= 0)
-                            ? Colors.greenAccent[700]
-                            : Colors.redAccent[700];
+                    if (index == queryList.length - 1) {
+                      return SizedBox(
+                        height: 60.0,
+                      );
+                    } else {
+                      Crypto currentCrypto = queryList.elementAt(index);
+                      changeColor =
+                          double.tryParse(currentCrypto.changeValue) == null
+                              ? Colors.grey[400]
+                              : (double.parse(currentCrypto.changeValue) >= 0)
+                                  ? Colors.greenAccent[700]
+                                  : Colors.redAccent[700];
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 1.0, horizontal: 4.0),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/crypto_details',
-                              arguments: currentCrypto);
-                        },
-                        title: Text(
-                          currentCrypto.name,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[300],
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 1.0, horizontal: 4.0),
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/crypto_details',
+                                arguments: currentCrypto);
+                          },
+                          title: Text(
+                            currentCrypto.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                          subtitle: Text(
+                            currentCrypto.diminutive,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(currentCrypto.logoUrl),
+                            backgroundColor: Colors.transparent,
+                          ),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                double.parse(currentCrypto.price)
+                                        .toStringAsFixed(2) +
+                                    '€/\$',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[300],
+                                ),
+                              ),
+                              Text(
+                                currentCrypto.change +
+                                    ' ' +
+                                    (double.tryParse(
+                                                currentCrypto.changeValue) ==
+                                            null
+                                        ? 'N/A'.toString()
+                                        : double.parse(
+                                                currentCrypto.changeValue)
+                                            .abs()
+                                            .toStringAsFixed(2)) +
+                                    '%',
+                                style: TextStyle(
+                                  color: changeColor,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        subtitle: Text(
-                          currentCrypto.diminutive,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[400],
-                          ),
-                        ),
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(currentCrypto.logoUrl),
-                          backgroundColor: Colors.transparent,
-                        ),
-                        trailing: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              double.parse(currentCrypto.price)
-                                      .toStringAsFixed(2) +
-                                  '€/\$',
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[300],
-                              ),
-                            ),
-                            Text(
-                              currentCrypto.change +
-                                  ' ' +
-                                  ((currentCrypto.changeValue == null)
-                                      ? 'N/A'.toString()
-                                      : double.parse(currentCrypto.changeValue)
-                                          .abs()
-                                          .toStringAsFixed(2)) +
-                                  '%',
-                              style: TextStyle(
-                                color: changeColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                      );
+                    }
                   },
                   separatorBuilder: (context, index) => Divider(
                     color: Colors.grey[200],
