@@ -19,6 +19,8 @@ class _ChangeWidgetState extends State<ChangeWidget> {
   TextEditingController _leftTextController = TextEditingController();
   TextEditingController _rightTextController = TextEditingController();
 
+  //TODO: Generic way to build the modal
+
   void _buildCryptoModal(BuildContext context) {
     selectedCrypto = (selectedCrypto == null)
         ? Provider.of<CryptoList>(context, listen: false).getAtIndex(0)
@@ -26,7 +28,7 @@ class _ChangeWidgetState extends State<ChangeWidget> {
 
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[800],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
@@ -41,12 +43,23 @@ class _ChangeWidgetState extends State<ChangeWidget> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "Select a cryptocurrency",
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Select a cryptocurrency",
+                        style: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     Spacer(),
                     IconButton(
-                      icon: Icon(Icons.cancel),
+                      icon: Icon(
+                        Icons.cancel,
+                        color: Colors.grey[300],
+                      ),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -76,14 +89,28 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                                 value.getAtIndex(index).name,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey[300],
+                                  color: (selectedCrypto.name ==
+                                              value.getAtIndex(index).name &&
+                                          selectedCrypto.diminutive ==
+                                              value
+                                                  .getAtIndex(index)
+                                                  .diminutive)
+                                      ? Colors.amberAccent[400]
+                                      : Colors.grey[300],
                                 ),
                               ),
                               subtitle: Text(
                                 value.getAtIndex(index).diminutive,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey[400],
+                                  color: (selectedCrypto.name ==
+                                              value.getAtIndex(index).name &&
+                                          selectedCrypto.diminutive ==
+                                              value
+                                                  .getAtIndex(index)
+                                                  .diminutive)
+                                      ? Colors.amberAccent[400]
+                                      : Colors.grey[400],
                                 ),
                               ),
                               leading: CircleAvatar(
@@ -95,7 +122,10 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                                           value.getAtIndex(index).name &&
                                       selectedCrypto.diminutive ==
                                           value.getAtIndex(index).diminutive)
-                                  ? Icon(Icons.check)
+                                  ? Icon(
+                                      Icons.check,
+                                      color: Colors.amberAccent[400],
+                                    )
                                   : SizedBox(),
                             ),
                           );
@@ -114,9 +144,13 @@ class _ChangeWidgetState extends State<ChangeWidget> {
   }
 
   void _buildFiatModal(BuildContext context) {
+    selectedFiat = (selectedFiat == null)
+        ? Provider.of<FiatList>(context, listen: false).fiats[0]
+        : selectedFiat; //TODO: Init correctly
+
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[800],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
@@ -131,12 +165,23 @@ class _ChangeWidgetState extends State<ChangeWidget> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "Select a fiat",
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Select a fiat currency",
+                        style: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     Spacer(),
                     IconButton(
-                      icon: Icon(Icons.cancel),
+                      icon: Icon(
+                        Icons.cancel,
+                        color: Colors.grey[300],
+                      ),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -152,12 +197,13 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                             vertical: 1.0, horizontal: 4.0),
                         child: ListTile(
                           onTap: () {
-                            print(Provider.of<FiatList>(context)
+                            print(Provider.of<FiatList>(context, listen: false)
                                 .fiats[index]
                                 .name);
                             setState(() {
                               selectedFiat =
-                                  Provider.of<FiatList>(context).fiats[index];
+                                  Provider.of<FiatList>(context, listen: false)
+                                      .fiats[index];
                             });
                             Navigator.of(context).pop();
                           },
@@ -165,7 +211,18 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                             Provider.of<FiatList>(context).fiats[index].name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.grey[300],
+                              color: (selectedFiat.name ==
+                                          Provider.of<FiatList>(context,
+                                                  listen: false)
+                                              .fiats[index]
+                                              .name &&
+                                      selectedFiat.diminutive ==
+                                          Provider.of<FiatList>(context,
+                                                  listen: false)
+                                              .fiats[index]
+                                              .diminutive)
+                                  ? Colors.amberAccent[400]
+                                  : Colors.grey[300],
                             ),
                           ),
                           subtitle: Text(
@@ -174,7 +231,18 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                                 .diminutive,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.grey[400],
+                              color: (selectedFiat.name ==
+                                          Provider.of<FiatList>(context,
+                                                  listen: false)
+                                              .fiats[index]
+                                              .name &&
+                                      selectedFiat.diminutive ==
+                                          Provider.of<FiatList>(context,
+                                                  listen: false)
+                                              .fiats[index]
+                                              .diminutive)
+                                  ? Colors.amberAccent[400]
+                                  : Colors.grey[400],
                             ),
                           ),
                           leading: CircleAvatar(
@@ -192,7 +260,10 @@ class _ChangeWidgetState extends State<ChangeWidget> {
                                       Provider.of<FiatList>(context)
                                           .fiats[index]
                                           .diminutive)
-                              ? Icon(Icons.check)
+                              ? Icon(
+                                  Icons.check,
+                                  color: Colors.amberAccent[400],
+                                )
                               : SizedBox(),
                         ),
                       );

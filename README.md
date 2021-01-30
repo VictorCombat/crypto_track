@@ -57,7 +57,7 @@ The purpose of this personal project is to learn how to develop a mobile applica
    | [Persisting favorites](http://flutterdevs.com/blog/using-sharedpreferences-in-flutter/)                       |     :white_check_mark:    |
    | Reorder favorites (Drag List)                                                                                 |     :white_check_mark:    |
    | Cryptocurrency details page                                                                                   |       :construction:      |
-   | Cryptocurrency widget converter                                                                               |       :construction:      |
+   | Cryptocurrency widget converter                                                                               |     :white_check_mark:    |
    | Cryptocurrency search                                                                                         |       :construction:      |
    | Cryptocurrencies sorting                                                                                      |       :construction:      |
    | Application settings                                                                                          |   :black_square_button:   |
