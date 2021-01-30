@@ -58,7 +58,7 @@ The purpose of this personal project is to learn how to develop a mobile applica
    | Reorder favorites (Drag List)                                                                                 |     :white_check_mark:    |
    | Cryptocurrency details page                                                                                   |       :construction:      |
    | Cryptocurrency widget converter                                                                               |     :white_check_mark:    |
-   | Cryptocurrency search                                                                                         |       :construction:      |
+   | Cryptocurrency search                                                                                         |     :white_check_mark:    |
    | Cryptocurrencies sorting                                                                                      |       :construction:      |
    | Application settings                                                                                          |   :black_square_button:   |
    | Final UI                                                                                                      |   :black_square_button:   |

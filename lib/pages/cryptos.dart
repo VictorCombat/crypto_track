@@ -31,7 +31,8 @@ class _CryptosState extends State<Cryptos> {
     if (query.isNotEmpty) {
       isSearching = true;
       initialList.cryptos.forEach((element) {
-        if (_containsIgnoreCase(element.name, query)) {
+        if (_containsIgnoreCase(element.name, query) ||
+            _containsIgnoreCase(element.diminutive, query)) {
           tmpList.add(element);
         }
       });
@@ -74,10 +75,11 @@ class _CryptosState extends State<Cryptos> {
           case SortBy.PERFORMERS:
             double aval = double.tryParse(a.changeValue);
             double bval = double.tryParse(b.changeValue);
-            if (aval == null || bval == null)
+            if (aval == null || bval == null) {
               return -1;
-            else
+            } else {
               return aval.compareTo(bval);
+            }
             break;
           case SortBy.VOLUME:
             return double.parse(a.totalVolume)
@@ -95,6 +97,16 @@ class _CryptosState extends State<Cryptos> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
+        title: Text(
+          'CryptoTrack',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.settings),
+          onPressed: () {
+            print('settings');
+          },
+        ),
         centerTitle: true,
         backgroundColor: Colors.grey[900],
         elevation: 0.0,
@@ -269,7 +281,7 @@ class _CryptosState extends State<Cryptos> {
   void _buildSortModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[800],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
@@ -284,12 +296,23 @@ class _CryptosState extends State<Cryptos> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "Sort by",
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Sort by",
+                        style: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     Spacer(),
                     IconButton(
-                      icon: Icon(Icons.cancel),
+                      icon: Icon(
+                        Icons.cancel,
+                        color: Colors.grey[300],
+                      ),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -321,7 +344,7 @@ class _CryptosState extends State<Cryptos> {
         title,
         style: TextStyle(
           fontWeight: (_sortBy == sortBy) ? FontWeight.bold : FontWeight.normal,
-          color: Colors.grey[900],
+          color: Colors.grey[300],
         ),
       ),
       trailing: Container(
@@ -330,15 +353,35 @@ class _CryptosState extends State<Cryptos> {
             fontWeight: FontWeight.bold,
             fontSize: 14.0,
           ),
-          color: Colors.amberAccent[400],
+          color: Colors.grey[300],
           selectedColor: Colors.grey[900],
           fillColor: Colors.amberAccent[400],
           isSelected: (_sortBy != sortBy)
               ? [false, false]
               : (_orderBy == OrderBy.ASC) ? [true, false] : [false, true],
           children: [
-            Text('ASC'),
-            Text('DESC'),
+            Column(
+              children: [
+                Icon(
+                  Icons.arrow_drop_up,
+                ),
+                Text(
+                  'ASC',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Icon(
+                  Icons.arrow_drop_down,
+                ),
+                Text(
+                  'DESC',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
           ],
           onPressed: (index) {
             _sortBy = sortBy;

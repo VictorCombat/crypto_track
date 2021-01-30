@@ -14,14 +14,19 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        backgroundColor: Colors.grey[900],
-        elevation: 0.0,
+        title: Text(
+          'CryptoTrack',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         leading: IconButton(
           icon: Icon(Icons.settings),
           onPressed: () {
             print('SETTINGS BUTTON CLICKED');
           },
         ),
+        centerTitle: true,
+        backgroundColor: Colors.grey[900],
+        elevation: 0.0,
       ),
       body:
           // Column(

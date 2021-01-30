@@ -18,10 +18,10 @@ class _FavoritesState extends State<Favorites> {
     return Scaffold(
         backgroundColor: Colors.grey[900],
         appBar: AppBar(
-          // title: Text(
-          //   'My favorites coins',
-          //   style: TextStyle(fontWeight: FontWeight.bold),
-          // ),
+          title: Text(
+            'CryptoTrack',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           leading: IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
