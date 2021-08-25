@@ -15,8 +15,6 @@
     .-->
     <!--<a href="#gallery">Gallery</a>
     . -->
-    <!--<a href="#license">License</a>
-    . -->
     <a href="#contact">Contact</a>
     <br>
     <br>
@@ -56,13 +54,10 @@ The purpose of this personal project is to learn how to develop a mobile applica
    | Automatic fetch data update                                                                                   |     :white_check_mark:    |
    | [Persisting favorites](http://flutterdevs.com/blog/using-sharedpreferences-in-flutter/)                       |     :white_check_mark:    |
    | Reorder favorites (Drag List)                                                                                 |     :white_check_mark:    |
-   | Cryptocurrency details page                                                                                   |       :construction:      |
+   | Cryptocurrency details page                                                                                   |     :white_check_mark:    |
    | Cryptocurrency widget converter                                                                               |     :white_check_mark:    |
    | Cryptocurrency search                                                                                         |     :white_check_mark:    |
-   | Cryptocurrencies sorting                                                                                      |       :construction:      |
-   | Application settings                                                                                          |   :black_square_button:   |
-   | Final UI                                                                                                      |   :black_square_button:   |
-   <!--| Publishing on Android / iOS                                                                                 |   :black_square_button:   |-->
+   | Cryptocurrencies sorting                                                                                      |     :white_check_mark:    |
 
 </div>
 
@@ -71,10 +66,6 @@ The purpose of this personal project is to learn how to develop a mobile applica
 
 <!--## Gallery
 -->
-
-<!--## License
-
-License ? :copyright:-->
 
 <!-- CONTACT -->
 ## Contact
