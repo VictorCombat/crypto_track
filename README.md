@@ -1,5 +1,5 @@
 <p align="center">
-  <!--<img src="img/readme-pic.png" alt="Logo" width="800" height="500">-->
+  <a href="#"><img src="./assets/app_img/cryptotrack-banner.jpg" alt="banner" width="700"></a>
 
   <h1 align="center"> CryptoTrack </h1>
 
@@ -13,8 +13,8 @@
     ·
     <!--<a href="#getting-started">Getting Started</a>
     .-->
-    <!--<a href="#gallery">Gallery</a>
-    . -->
+    <a href="#gallery">Gallery</a>
+    .
     <a href="#contact">Contact</a>
     <br>
     <br>
