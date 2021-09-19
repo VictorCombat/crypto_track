@@ -64,8 +64,17 @@ The purpose of this personal project is to learn how to develop a mobile applica
 <!-- GETTING STARTED -->
 <!--## Getting Started-->
 
-<!--## Gallery
--->
+## Gallery
+
+<details>
+  <summary> Show gallery </summary>
+
+   <img src="assets/app_img/cryptotrack-home-page-top.jpg" height="400">  <img src="assets/app_img/cryptotrack-home-page-bottom.jpg" height="400">  <img src="assets/app_img/cryptotrack-converter.jpg" height="400">  <img src="assets/app_img/cryptotrack-converter-crypto.jpg" height="400"> 
+   <img src="assets/app_img/cryptotrack-converter-fiat.jpg" height="400">  <img src="assets/app_img/cryptotrack-fav-page.jpg" height="400"> <img src="assets/app_img/cryptotrack-fav-page-drag.jpg" height="400">  <img src="assets/app_img/cryptotrack-search-page.jpg" height="400"> 
+   <img src="assets/app_img/cryptotrack-search-page-searching.jpg" height="400">  <img src="assets/app_img/cryptotrack-search-page-sort-modal.jpg" height="400">  <img src="assets/app_img/cryptotrack-details-page-1D.jpg" height="400"> <img src="assets/app_img/cryptotrack-details-page-6M.jpg" height="400"> 
+  
+  
+</details>
 
 <!-- CONTACT -->
 ## Contact
