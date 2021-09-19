@@ -45,7 +45,7 @@ The purpose of this personal project is to learn how to develop a mobile applica
     margin-right: auto;
     width: 500px">
 
-   | <div style="width: 250px"> Tâches </div>                                                                      | Status                    |
+   | <div style="width: 250px"> Features </div>                                                                    | Status                    |
    | :---                                                                                                          |           :---:           |
    | Fetch data from API                                                                                           |     :white_check_mark:    |
    | [Managing application state](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple)         |     :white_check_mark:    |
